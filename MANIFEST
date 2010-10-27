@@ -1,4 +1,6 @@
 Changes
+example/word_count.pl
+example/word_count_parallel.pl
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
@@ -10,13 +12,21 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Repository.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+inc/Test/Exception.pm
+inc/Test/LoadAllModules.pm
 inc/Test/More.pm
 lib/MapReduce/Simple.pm
+lib/MapReduce/Simple/Job.pm
+lib/MapReduce/Simple/Job/Mapper.pm
+lib/MapReduce/Simple/Job/Reducer.pm
+lib/MapReduce/Simple/Worker/Parallel.pm
+lib/MapReduce/Simple/Worker/Sequencial.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
-t/00_compile.t
+t/base.t
+t/compile.t
 xt/01_podspell.t
 xt/02_perlcritic.t
 xt/03_pod.t

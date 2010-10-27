@@ -24,13 +24,14 @@ __PACKAGE__->mk_accessors(qw/jobs/);
 sub new {
     my ( $class, %args ) = @_;
     $class->SUPER::new(+{
-	jobs => [],
+	jobs => $args{jobs} || [],
     });
 }
 
 sub add_job {
     my ( $self, $job ) = @_;
     push(@{$self->{jobs}}, $job);
+    $self;
 }
 
 sub run {
@@ -69,18 +70,17 @@ sub create_worker {
     _ensure_class_loaded($worker_class)->new( $worker_config->{args} );
 }
 
-sub mapper (&@) {
-    my ( $code, $opts ) = @_;
-    my $mapper_class = delete $opts->{mapper_class} || $MAPPER_CLASS;
-    _ensure_class_loaded( $mapper_class )->new( $code, $opts );
+sub mapper (&;%) {
+    my ( $code, %opts ) = @_;
+    my $mapper_class = delete $opts{mapper_class} || $MAPPER_CLASS;
+    _ensure_class_loaded( $mapper_class )->new( $code, \%opts );
 }
 
-sub reducer (&@) {
-    my ( $code, $opts ) = @_;
-    my $reducer_class = delete $opts->{reducer_class} || $REDUCER_CLASS;
-    _ensure_class_loaded( $reducer_class )->new( $code, $opts );
+sub reducer (&;%) {
+    my ( $code, %opts ) = @_;
+    my $reducer_class = delete $opts{reducer_class} || $REDUCER_CLASS;
+    _ensure_class_loaded( $reducer_class )->new( $code, \%opts );
 }
-
 
 sub _ensure_class_loaded {
     my ( $class_name ) = @_;

@@ -28,6 +28,7 @@ sub run {
 
     my $rv;
     try {
+        $self->{counter}++;
         $rv = $self->{code}->( $self, $key, $value );
     }
     catch {
